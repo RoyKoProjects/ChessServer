@@ -10,6 +10,7 @@ pip uninstall -r requirements.txt -y
 
 
 ## Setup
+sudo apt install stockfish
 
 pip install -r requirements.txt
 
