@@ -26,29 +26,35 @@ stockfish = Stockfish(depth=30, parameters={
 )
 
 print(stockfish.get_parameters())
+print(stockfish.is_fen_valid(
+    "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"))
 
 
-@app.route('/getmove', methods=['GET'])
+@app.route('/getChessMove', methods=['GET'])
 def respond():
 
     # Retrieve the name from url parameter
     fen = request.args.get("fen", None)
     maxtime = request.args.get("think_time", None)
     # For debugging
-    print(request.args.keys())
+    # print(request.args.keys())
     print(fen, maxtime)
 
     response = {}
     # # Check if user sent a fen at all
-    if not fen:
-        response["ERROR"] = "no fen found, please send a valid board position."
-    # Check if fen is valid
-    elif not stockfish.is_valid_fen(fen):
-        response["ERROR"] = "invalid fen, please send a valid fen."
-    else:
-        stockfish.set_fen_position(fen)
-        response["BESTMOVE"] = stockfish.get_best_move_time(
-            maxtime if maxtime else 1000)
+    try:
+        if not fen:
+            response["ERROR"] = "no fen found, please send a valid board position."
+        # Check if fen is valid
+        elif not stockfish.is_fen_valid(fen):
+            response["ERROR"] = "invalid fen, please send a valid fen."
+        else:
+            stockfish.set_fen_position(fen)
+            response["BESTMOVE"] = stockfish.get_best_move_time(
+                maxtime if maxtime else 1000)
+    except Exception as e:
+        print(e)
+        response["ERROR"] = str("invalid fen, please send a valid fen.")
     # Return the response in json format
     return jsonify(response)
 
@@ -62,4 +68,4 @@ def index():
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
 
-    app.run(threaded=True, port=os.environ.port if os.environ.port else 5000)
+    app.run(threaded=True, port=os.environ.port if os.environ.port else 3000)
