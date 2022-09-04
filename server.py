@@ -8,26 +8,25 @@ print(os.cpu_count(), "CPUs", mem_bytes // (2 ** 20), "MB of memory")
 
 stockfish = Stockfish(depth=30, parameters={
     "Debug Log File": "",
-    "Contempt": 0,
+    # "Contempt": 0,
     "Min Split Depth": 0,
     # More threads will make the engine stronger, but should be kept at less than the number of logical processors on your computer.
-    "Threads": os.cpu_count()-1,
+    "Threads": os.cpu_count()-1 if os.cpu_count() > 1 else 1,
     "Ponder": "true",
     # Default size is 16 MB. It's recommended that you increase this value, but keep it as some power of 2. E.g., if you're fine using 2 GB of RAM, set Hash to 2048 (11th power of 2).
-    "Hash": mem_bytes // (2 ** 20),
-    # "MultiPV": 1,
-    "Skill Level": 20,
-    "Move Overhead": 10,
+    "Hash": mem_bytes // (2 ** 20),  # half the available memory
+    # "MultiPV": 1
+    # "Skill Level": 20,
+    # "Move Overhead": 10,
     # "Minimum Thinking Time": 20,
     # "Slow Mover": 100,
-    # "UCI_Chess960": "false",
     # "UCI_LimitStrength": "false",
     "UCI_Elo": 9999}
 )
 print(stockfish.get_parameters())
 
 
-@app.route('/getChessMove', methods=['GET'])
+@ app.route('/getChessMove', methods=['GET'])
 def respond():
 
     # Retrieve the name from url parameter
@@ -57,7 +56,7 @@ def respond():
 
 
 # A welcome message to test our server
-@app.route('/')
+@ app.route('/')
 def index():
     return "<h1>Uploading Virus...</h1>"
 
