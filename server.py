@@ -24,10 +24,7 @@ stockfish = Stockfish(depth=30, parameters={
     # "UCI_LimitStrength": "false",
     "UCI_Elo": 9999}
 )
-
 print(stockfish.get_parameters())
-print(stockfish.is_fen_valid(
-    "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"))
 
 
 @app.route('/getChessMove', methods=['GET'])
@@ -68,4 +65,4 @@ def index():
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
 
-    app.run(threaded=True, port=os.environ.port if os.environ.port else 3000)
+    app.run(threaded=True, port=3000)
