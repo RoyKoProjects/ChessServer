@@ -15,3 +15,8 @@ sudo apt install stockfish python3 python3-pip python3-venv
 pip3 install -r requirements.txt
 
 flask --app server.py --debug run
+
+## Docker
+
+docker build -t chess_server .
+docker run -d -p 8000:5000 --name chess_server chess_server
