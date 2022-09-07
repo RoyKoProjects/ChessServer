@@ -64,4 +64,4 @@ def index():
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
 
-    app.run(threaded=True, port='9000', host='0.0.0.0')
+    app.run(threaded=True, port='80', host='0.0.0.0')

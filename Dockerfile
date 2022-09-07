@@ -1,6 +1,9 @@
 # syntax=docker/dockerfile:1
 #Setup OS
-FROM ubuntu:latest
+# FROM ubuntu:latest
+
+FROM tiangolo/uwsgi-nginx-flask:flask
+
 
 #Server Logic
 FROM python:3.8-slim-buster
