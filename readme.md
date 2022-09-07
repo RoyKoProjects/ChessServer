@@ -18,5 +18,5 @@ flask --app server.py --debug run
 
 ## Docker
 
-docker build -t chess_server .
-docker run -d -restart=always -p 80:80 --name chess_server chess_server
+docker build -t chess_server . (may need sudo)
+docker run -d --restart=always -p 80:80 --name chess_server chess_server (may need sudo)
